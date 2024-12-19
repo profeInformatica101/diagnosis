@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Proceso de Diagnóstico de una Máquina</title>
+  <!-- Bootstrap CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+  >
+  <!-- Bootstrap Icons -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  >
+  <style>
+    body {
+      background: #f8f9fa;
+      padding: 20px;
+    }
+    .step-icon {
+      font-size: 1.5rem;
+      margin-right: 10px;
+      color: #0d6efd;
+    }
+    .code-block {
+      background: #212529;
+      color: #f8f9fa;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 0.9em;
+      margin-bottom: 15px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1 class="mb-4"><i class="bi bi-gear-fill"></i> Proceso de Diagnóstico de una Máquina</h1>
+
+  <div class="accordion" id="diagnosticoAccordion">
+
+    <!-- Estado General del Sistema -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <i class="bi bi-cpu step-icon"></i> 1. Verificación del Estado General del Sistema
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#diagnosticoAccordion">
+        <div class="accordion-body">
+          <p><strong>Comprobar carga del sistema y uso de recursos:</strong></p>
+          <div class="code-block">
+<pre>top       # Monitor en tiempo real de CPU y RAM
+htop      # Alternativa más visual a 'top'
+free -h   # Verificar memoria libre y uso de swap
+df -h     # Espacio en disco</pre>
+          </div>
+
+          <p><strong>Estado de la red:</strong></p>
+          <div class="code-block">
+<pre>ip a       # Listar interfaces y direcciones IP
+ip r       # Ver rutas de red
+ping google.com  # Comprobar conectividad externa</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verificación de Servicios y Puertos -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          <i class="bi bi-plug-fill step-icon"></i> 2. Verificación de Servicios y Puertos
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#diagnosticoAccordion">
+        <div class="accordion-body">
+          <p><strong>Estado de servicios:</strong></p>
+          <div class="code-block">
+<pre>systemctl status <servicio>   # Ej: systemctl status apache2</pre>
+          </div>
+
+          <p><strong>Puertos en escucha:</strong></p>
+          <div class="code-block">
+<pre>netstat -tulpn   # Listar servicios y puertos
+ss -tulpn         # Herramienta moderna equivalente
+lsof -i :<puerto> # Ver qué proceso ocupa un puerto</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verificación de Logs -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          <i class="bi bi-file-earmark-text-fill step-icon"></i> 3. Verificación de Logs del Sistema y Aplicaciones
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#diagnosticoAccordion">
+        <div class="accordion-body">
+          <p><strong>Logs del sistema:</strong></p>
+          <div class="code-block">
+<pre>journalctl -xe  # Mensajes recientes del sistema</pre>
+          </div>
+
+          <p><strong>Logs de aplicaciones:</strong></p>
+          <div class="code-block">
+<pre>tail -f /var/log/syslog
+tail -f /var/log/nginx/error.log</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verificación de Configuración de Red -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <i class="bi bi-wifi step-icon"></i> 4. Verificación de la Configuración de la Red
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#diagnosticoAccordion">
+        <div class="accordion-body">
+          <p><strong>DNS:</strong></p>
+          <div class="code-block">
+<pre>cat /etc/resolv.conf
+resolvectl status</pre>
+          </div>
+
+          <p><strong>Prueba HTTP local:</strong></p>
+          <div class="code-block">
+<pre>curl -I http://127.0.0.1:80  # Verificar respuesta del servidor web local</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Verificación de Consumo de Recursos por Procesos -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+          <i class="bi bi-bar-chart-fill step-icon"></i> 5. Verificación de Procesos y Uso de Memoria/CPU
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#diagnosticoAccordion">
+        <div class="accordion-body">
+          <div class="code-block">
+<pre>ps aux --sort=-%mem | head   # Top procesos por consumo de RAM
+ps aux --sort=-%cpu | head   # Top procesos por consumo de CPU</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pruebas Específicas del Servicio -->
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          <i class="bi bi-server step-icon"></i> 6. Pruebas Específicas del Servicio
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#diagnosticoAccordion">
+        <div class="accordion-body">
+          <p><strong>Base de datos (ej: PostgreSQL):</strong></p>
+          <div class="code-block">
+<pre>psql -h 127.0.0.1 -p 5432 -U postgres -c "SELECT version();"</pre>
+          </div>
+
+          <p><strong>Servidor web:</strong></p>
+          <div class="code-block">
+<pre>curl -I http://localhost       # Verificar respuesta HTTP
+curl -I http://localhost/salud # Healthcheck del servicio</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Bootstrap JS (con Popper) -->
+<script 
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+</body>
+</html>
