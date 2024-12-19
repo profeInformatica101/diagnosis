@@ -1,5 +1,7 @@
-# Proceso de Diagnóstico de una Máquina
 
+https://profeinformatica101.github.io/diagnosis/
+
+# Proceso de Diagnóstico de una Máquina
 Este proyecto proporciona un conjunto de pasos estructurados para diagnosticar el estado de una máquina en un entorno Linux. A través de un conjunto de comandos esenciales, se cubren varios aspectos de la máquina, tales como el estado general del sistema, la verificación de servicios y puertos, el análisis de logs, y la comprobación de la configuración de red.
 
 Cada sección contiene una breve explicación junto con los comandos más comunes para realizar la verificación. El proyecto está organizado mediante una estructura de acordeón (accordion) para que los usuarios puedan consultar fácilmente las distintas etapas del diagnóstico.
